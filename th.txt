@@ -1,0 +1,5 @@
+JS --> client side
+node --> server side | spring | boot | .net
+MERN --> MONGO | EXPRESS | REACT | NODE
+API --> Application Programming Interface create
+NODE JS :
