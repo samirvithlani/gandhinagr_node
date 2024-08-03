@@ -1,19 +1,51 @@
-// const user = require("./users") //import statment
-// console.log(user) // Output: amit
-// console.log(user.userName) // Output: amit
-// console.log(user.userage) // Output: 25
-// user.getUserData(1000) // Output: get user data
+const express  = require('express'); //importing express module
+require("./src/util/db")
+const app = express(); //creating express object
 
-const fileSystem = require("./filesystem");
-//fileSystem.writeDatatoFile("data.txt","Hello this is India")
-const fileData = fileSystem.readDataFromFile("data.txt");
-//console.log(fileData);
-fileSystem.writeJsonObjectToFile(
-  "data.json",
-  JSON.stringify({ name: "Amit", age: 25 })
-);
-fileSystem.writeCProgramToFile(
-  "program.c",
-  'int main(){\n\tprintf("Hello World");\n\treturn 0;\n}'
-);
-//gcc ${filename} -o temp.exe
+//api produce//get post put delete patch
+
+app.get("/test",(req,res)=>{
+    console.log("Test API");
+    //res.send("Test API");
+    res.json({message:"Test API Called..."});
+})
+
+const user = {
+    name:"Rahul",
+    age:25,
+    city:"Bangalore"
+}
+
+const users = [
+    {
+        id:1,
+        name:"amit",
+        age:23
+    },
+    {
+        id:2,
+        name:"sumit",
+        age:25
+    }
+]
+
+app.get("/user",(req,res)=>{
+    
+    res.json({
+        message:"List of users",
+        user:user
+    })
+})
+
+app.get("/users",(req,res)=>{
+    res.json({
+        message:"List of users",
+        users:users
+    })
+})
+
+const PORT = 3001; //port number
+
+app.listen(PORT,()=>{
+    console.log("Server is running on port "+PORT);
+})

@@ -3,3 +3,17 @@ node --> server side | spring | boot | .net
 MERN --> MONGO | EXPRESS | REACT | NODE
 API --> Application Programming Interface create
 NODE JS :
+gcc ${filename} -o temp.exe
+
+
+
+
+
+2 ooptions:
+http module: req,res, manual
+express  : req,res, middleware
+
+npm install nodemon -g
+
+npm install mongoose
+
