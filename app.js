@@ -1,51 +1,69 @@
-const express  = require('express'); //importing express module
-require("./src/util/db")
+const express = require("express"); //importing express module
+require("./src/util/db");
 const app = express(); //creating express object
 
 //api produce//get post put delete patch
 
-app.get("/test",(req,res)=>{
-    console.log("Test API");
-    //res.send("Test API");
-    res.json({message:"Test API Called..."});
-})
+app.get("/test", (req, res) => {
+  console.log("Test API");
+  //res.send("Test API");
+  res.json({ message: "Test API Called..." });
+});
 
 const user = {
-    name:"Rahul",
-    age:25,
-    city:"Bangalore"
-}
+  name: "Rahul",
+  age: 25,
+  city: "Bangalore",
+};
 
 const users = [
-    {
-        id:1,
-        name:"amit",
-        age:23
-    },
-    {
-        id:2,
-        name:"sumit",
-        age:25
-    }
-]
+  {
+    id: 1,
+    name: "amit",
+    age: 23,
+  },
+  {
+    id: 2,
+    name: "sumit",
+    age: 25,
+  },
+];
 
-app.get("/user",(req,res)=>{
-    
-    res.json({
-        message:"List of users",
-        user:user
-    })
-})
+app.get("/user", (req, res) => {
+  res.json({
+    message: "List of users",
+    user: user,
+  });
+});
 
-app.get("/users",(req,res)=>{
+app.get("/users", (req, res) => {
+  res.json({
+    message: "List of users",
+    users: users,
+  });
+});
+
+app.get("/user/:id", (req, res) => {
+  //:id ==> params :
+  console.log("req params...", req.params);
+  const id = req.params.id;
+  var findUser = users.find((user) => user.id == id);
+  console.log("findUser...", findUser);
+  console.log("id...", id);
+  if (findUser != undefined) {
     res.json({
-        message:"List of users",
-        users:users
-    })
-})
+      message: "User Details",
+      user: findUser,
+    });
+  } else {
+    res.json({
+      message: "User not found...",
+    });
+  }
+});
 
 const PORT = 3001; //port number
 
-app.listen(PORT,()=>{
-    console.log("Server is running on port "+PORT);
-})
+app.listen(PORT, () => {
+  console.log("Server is running on port " + PORT);
+});
