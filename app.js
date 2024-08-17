@@ -4,63 +4,38 @@ const app = express(); //creating express object
 
 //api produce//get post put delete patch
 
-app.get("/test", (req, res) => {
-  console.log("Test API");
-  //res.send("Test API");
-  res.json({ message: "Test API Called..." });
-});
+const userSchema = require("./src/models/UserModel"); //importing userSchema
+//userSchema.find() //find is a method in userSchema
 
-const user = {
-  name: "Rahul",
-  age: 25,
-  city: "Bangalore",
-};
+app.get("/users",async(req,res)=>{
 
-const users = [
-  {
-    id: 1,
-    name: "amit",
-    age: 23,
-  },
-  {
-    id: 2,
-    name: "sumit",
-    age: 25,
-  },
-];
-
-app.get("/user", (req, res) => {
+  const users = await userSchema.find()
   res.json({
-    message: "List of users",
-    user: user,
-  });
-});
+    message:"List of users",
+    data:users
+  })
 
-app.get("/users", (req, res) => {
-  res.json({
-    message: "List of users",
-    users: users,
-  });
-});
+})
 
-app.get("/user/:id", (req, res) => {
-  //:id ==> params :
-  console.log("req params...", req.params);
-  const id = req.params.id;
-  var findUser = users.find((user) => user.id == id);
-  console.log("findUser...", findUser);
-  console.log("id...", id);
-  if (findUser != undefined) {
+
+app.get("/users/:id",async(req,res)=>{
+
+  const id = req.params.id
+  const user = await userSchema.findById(id)
+  if(user){
     res.json({
-      message: "User Details",
-      user: findUser,
-    });
-  } else {
-    res.json({
-      message: "User not found...",
-    });
+      message:"User found",
+      data:user
+    })
   }
-});
+  else{
+    res.json({
+      message:"User not found"
+    })
+  }
+
+})
+
 
 const PORT = 3001; //port number
 
