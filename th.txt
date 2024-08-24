@@ -17,3 +17,6 @@ npm install nodemon -g
 
 npm install mongoose
 
+
+request:-app.js -->routes --> controller-->model --> response..
+
