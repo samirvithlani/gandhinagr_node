@@ -23,8 +23,22 @@ const getUserById = async (req, res) => {
         })
     }
 }
+
+const addUser = async(req,res)=>{
+
+    //console.log("req.body..",req.body)
+    const savedUser  = await userSchema.create(req.body)
+    res.json({
+        message:"User added successfully",
+        data:savedUser
+    })
+    //res.send("ok...")
+
+
+}
     
 module.exports = {
     getAllUsers,
-    getUserById
+    getUserById,
+    addUser
 }
