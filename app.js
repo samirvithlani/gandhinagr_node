@@ -5,7 +5,9 @@ app.use(express.json()); //middleware to parse json data
 
 
 const userRoutes = require("./src/routes/UserRoutes"); //importing userRoutes
+const roleRoutes = require("./src/routes/RoleRoutes")
 app.use("/user",userRoutes); //using userRoutes
+app.use("/role",roleRoutes)
 //localhost:3001/user/users
 
 

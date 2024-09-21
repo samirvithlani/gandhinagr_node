@@ -6,6 +6,10 @@ const Schema = mongoose.Schema; //schema can be used to define the structure of 
 const userSchema = new Schema(
   {
     //fields
+    role:{
+      type:Schema.Types.ObjectId,
+      ref:"roles"
+    },
     name: {
       type: String,
     },

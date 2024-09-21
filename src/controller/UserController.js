@@ -2,7 +2,7 @@
 const userSchema = require("../models/UserModel");
 
 const getAllUsers = async (req, res) => {
-  const users = await userSchema.find();
+  const users = await userSchema.find().populate("role");
   res.json({
     message: "List of users",
     data: users,
