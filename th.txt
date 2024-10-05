@@ -20,3 +20,10 @@ npm install mongoose
 
 request:-app.js -->routes --> controller-->model --> response..
 
+middleware  : filter:
+
+req ---> [middleware]controller -->
+
+
+
+Ro --> tap -->filter --> 
