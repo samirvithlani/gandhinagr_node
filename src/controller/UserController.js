@@ -1,5 +1,6 @@
 //require user model..
 const userSchema = require("../models/UserModel");
+const encrypt = require("../util/encrypt");
 
 const getAllUsers = async (req, res) => {
   const users = await userSchema.find().populate("role");
@@ -25,6 +26,9 @@ const getUserById = async (req, res) => {
 const addUser = async (req, res) => {
   //console.log("req.body..",req.body)
   try {
+    if (req.body.password) {
+      req.body.password = await encrypt.encryptPassword(req.body.password);
+    }
     const savedUser = await userSchema.create(req.body);
     res.json({
       message: "User added successfully",
@@ -95,6 +99,38 @@ const updateUser = async (req, res) => {
   }
 };
 
+const loginUser = async (req, res) => {
+  const { email, password } = req.body;
+  //db user fine... -->email
+
+  const userFindWithEmail = await userSchema.findOne({ email: email });
+  console.log("userFindWithEmail..", userFindWithEmail);
+  if (userFindWithEmail != null || userFindWithEmail != undefined) {
+    //password --> string user..
+    //hash --> db
+    const isMatch = await encrypt.comparePassword(
+      password,
+      userFindWithEmail.password
+    );
+    if (isMatch) {
+      res.json({
+        message: "Login success",
+        data: userFindWithEmail,
+      });
+    } else {
+      res.status(401).json({
+        message: "Invalid password",
+      });
+    }
+  } else {
+    res.status(404).json({
+      message: "User not found",
+    });
+  }
+};
+
+//sam123 --> db -->encrypt
+
 module.exports = {
   getAllUsers,
   getUserById,
@@ -102,4 +138,5 @@ module.exports = {
   deleteUser,
   deleteUserByName,
   updateUser,
+  loginUser,
 };
