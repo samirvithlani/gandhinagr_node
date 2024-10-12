@@ -6,8 +6,10 @@ app.use(express.json()); //middleware to parse json data
 
 const userRoutes = require("./src/routes/UserRoutes"); //importing userRoutes
 const roleRoutes = require("./src/routes/RoleRoutes")
+const uploadRoutes = require("./src/routes/UploadRoutes"); //importing uploadRoutes
 app.use("/user",userRoutes); //using userRoutes
 app.use("/role",roleRoutes)
+app.use("/upload",uploadRoutes); //using uploadRoutes
 //localhost:3001/user/users
 
 
