@@ -1,6 +1,7 @@
 //require user model..
 const userSchema = require("../models/UserModel");
 const encrypt = require("../util/encrypt");
+const tokenUtil = require("../util/tokenUtil")
 
 const getAllUsers = async (req, res) => {
   const users = await userSchema.find().populate("role");
@@ -113,9 +114,12 @@ const loginUser = async (req, res) => {
       userFindWithEmail.password
     );
     if (isMatch) {
+      //token generate,,,
+      const token = tokenUtil.generateToken(userFindWithEmail.toObject());
       res.json({
         message: "Login success",
-        data: userFindWithEmail,
+        //data: userFindWithEmail,
+        data:token
       });
     } else {
       res.status(401).json({
